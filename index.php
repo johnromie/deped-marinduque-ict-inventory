@@ -41,14 +41,14 @@ declare(strict_types=1);
       </div>
       <form id="loginForm">
         <label>Username
-          <input id="username" type="text" required placeholder="admin" />
+          <input id="username" type="text" required placeholder="ICT" />
         </label>
         <label>Password
-          <input id="password" type="password" required placeholder="admin123" />
+          <input id="password" type="password" required placeholder="admin" />
         </label>
         <button type="submit" class="btn primary">Sign In</button>
       </form>
-      <p class="hint">Default accounts: <code>admin / admin123</code> and <code>staff / staff123</code></p>
+      <p class="hint">Default account: <code>ICT / admin</code></p>
     </section>
 
     <section id="appSection" class="hidden">

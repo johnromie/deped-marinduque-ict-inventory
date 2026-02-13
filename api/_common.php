@@ -96,8 +96,7 @@ function initialize_db(PDO $pdo): void {
   $pdo->exec('CREATE UNIQUE INDEX IF NOT EXISTS idx_inventory_imports_content_hash ON inventory_imports(content_hash)');
 
   $stmt = $pdo->prepare('INSERT OR IGNORE INTO users (username, password_hash, full_name, role) VALUES (?, ?, ?, ?)');
-  $stmt->execute(['admin', password_hash('admin123', PASSWORD_DEFAULT), 'ICT Administrator', 'admin']);
-  $stmt->execute(['staff', password_hash('staff123', PASSWORD_DEFAULT), 'ICT Staff', 'staff']);
+  $stmt->execute(['ICT', password_hash('admin', PASSWORD_DEFAULT), 'ICT Administrator', 'admin']);
 }
 
 function ensure_column_exists(PDO $pdo, string $table, string $column, string $definition): void {

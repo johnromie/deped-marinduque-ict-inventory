@@ -14,8 +14,7 @@
 3. Open `http://localhost:8000/index.php`.
 
 ## Default Accounts
-- `admin` / `admin123`
-- `staff` / `staff123`
+- `ICT` / `admin`
 
 ## Features
 - Login/logout with session auth
