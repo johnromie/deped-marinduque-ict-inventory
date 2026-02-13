@@ -4,10 +4,6 @@ services:
     env: docker
     plan: free
     autoDeploy: true
-    disk:
-      name: inventory-data
-      mountPath: /var/data
-      sizeGB: 1
     envVars:
       - key: DB_PATH
-        value: /var/data/database.sqlite
+        value: /tmp/database.sqlite
