@@ -95,7 +95,16 @@ function initialize_db(PDO $pdo): void {
 
   $pdo->exec('CREATE UNIQUE INDEX IF NOT EXISTS idx_inventory_imports_content_hash ON inventory_imports(content_hash)');
 
-  $stmt = $pdo->prepare('INSERT OR IGNORE INTO users (username, password_hash, full_name, role) VALUES (?, ?, ?, ?)');
+  // Enforce a single default admin account and remove old seeded accounts.
+  $pdo->exec("DELETE FROM users WHERE lower(username) IN ('admin', 'staff')");
+  $stmt = $pdo->prepare(
+    'INSERT INTO users (username, password_hash, full_name, role)
+     VALUES (?, ?, ?, ?)
+     ON CONFLICT(username) DO UPDATE SET
+       password_hash = excluded.password_hash,
+       full_name = excluded.full_name,
+       role = excluded.role'
+  );
   $stmt->execute(['ICT', password_hash('admin', PASSWORD_DEFAULT), 'ICT Administrator', 'admin']);
 }
 
