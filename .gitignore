@@ -1,0 +1,5 @@
+cloudflared*.log
+*.sqlite
+*.sqlite3
+data/*.sqlite
+.vscode/

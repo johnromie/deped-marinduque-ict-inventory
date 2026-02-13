@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: deped-marinduque-ict-inventory
+    env: docker
+    plan: free
+    autoDeploy: true
+    disk:
+      name: inventory-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: DB_PATH
+        value: /var/data/database.sqlite

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DepEd Marinduque ICT Inventory</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="govBanner">
+    <img src="assets/top.webp" alt="DepEd Marinduque Header" />
+  </div>
+
+  <header class="topbar">
+    <div>
+      <h1>ICT Inventory Management System</h1>
+      <p>Schools Division of Marinduque</p>
+    </div>
+    <div class="topbarActions">
+      <span id="whoami" class="pill hidden"></span>
+      <button id="logoutBtn" class="btn ghost hidden">Logout</button>
+    </div>
+  </header>
+
+  <main class="page">
+    <section id="loginSection" class="panel authPanel">
+      <h2>Login</h2>
+      <form id="loginForm">
+        <label>Username
+          <input id="username" type="text" required placeholder="admin" />
+        </label>
+        <label>Password
+          <input id="password" type="password" required placeholder="admin123" />
+        </label>
+        <button type="submit" class="btn primary">Sign In</button>
+      </form>
+      <p class="hint">Default accounts: <code>admin / admin123</code> and <code>staff / staff123</code></p>
+    </section>
+
+    <section id="appSection" class="hidden">
+      <div class="layout">
+        <section class="panel">
+          <h2>Add / Update Item</h2>
+          <form id="inventoryForm">
+            <input type="hidden" id="itemId" />
+
+            <label>Property Number
+              <input type="text" id="propertyNo" required placeholder="DEPED-MRQ-ICT-0001" />
+            </label>
+
+            <label>Item Name
+              <input type="text" id="itemName" list="itemOptions" required placeholder="Desktop (package)" />
+            </label>
+
+            <label>Category
+              <select id="category" required>
+                <option value="">Select category</option>
+                <option>High-value</option>
+                <option>Low-value</option>
+                <option>Other</option>
+              </select>
+            </label>
+
+            <label>Brand / Model
+              <input type="text" id="brandModel" list="brandModelOptions" required placeholder="Lenovo X310 M5" />
+            </label>
+
+            <label>Serial Number
+              <input type="text" id="serialNo" required placeholder="SN-12345" />
+            </label>
+
+            <label>Office / School
+              <input type="text" id="location" list="locationOptions" required placeholder="School Division Office" />
+            </label>
+
+            <label>Assigned To
+              <input type="text" id="assignedTo" placeholder="Juan Dela Cruz" />
+            </label>
+
+            <label>Condition
+              <select id="condition" required>
+                <option value="">Select condition</option>
+                <option>Serviceable</option>
+                <option>Working</option>
+                <option>For Repair</option>
+                <option>Unserviceable</option>
+                <option>Condemned</option>
+                <option>Disposed</option>
+              </select>
+            </label>
+
+            <datalist id="itemOptions">
+              <option value="Desktop (package)"></option>
+              <option value="Laptop"></option>
+              <option value="Scanner"></option>
+              <option value="Projector"></option>
+              <option value="Mouse"></option>
+              <option value="UPS"></option>
+              <option value="Multifunction Printer"></option>
+              <option value="Printer"></option>
+              <option value="Monitor"></option>
+              <option value="Keyboard"></option>
+              <option value="Webcam"></option>
+            </datalist>
+
+            <datalist id="brandModelOptions">
+              <option value="Lenovo"></option>
+              <option value="LENOVO (SYSTEM X310 M5)"></option>
+              <option value="MSI"></option>
+              <option value="Epson"></option>
+              <option value="Acer"></option>
+              <option value="EPSON WorkForce DS-530"></option>
+              <option value="Epson EB-X52"></option>
+              <option value="Acer Aspire Go 15"></option>
+              <option value="Intel Core i5 1355U"></option>
+              <option value="Intel Core i7 Ryzen 7"></option>
+            </datalist>
+
+            <datalist id="locationOptions">
+              <option value="School Division Office"></option>
+              <option value="Division Office"></option>
+              <option value="Boac North District"></option>
+              <option value="Boac South District"></option>
+              <option value="Gasan District"></option>
+              <option value="Mogpog District"></option>
+              <option value="Santa Cruz District"></option>
+              <option value="Torrijos District"></option>
+            </datalist>
+
+            <label>Date Acquired
+              <input type="date" id="acquiredDate" required />
+            </label>
+
+            <label>Remarks
+              <textarea id="remarks" rows="2" placeholder="Any notes"></textarea>
+            </label>
+
+            <div class="actions">
+              <button type="submit" class="btn primary">Save Item</button>
+              <button type="button" id="cancelEditBtn" class="btn ghost hidden">Cancel Edit</button>
+            </div>
+          </form>
+
+          <hr />
+
+          <h2>Account Security</h2>
+          <form id="changePasswordForm">
+            <label>Current Password
+              <input id="currentPassword" type="password" required />
+            </label>
+            <label>New Password
+              <input id="newPassword" type="password" required minlength="8" />
+            </label>
+            <label>Confirm New Password
+              <input id="confirmPassword" type="password" required minlength="8" />
+            </label>
+            <button type="submit" class="btn secondary">Change Password</button>
+          </form>
+        </section>
+
+        <section class="panel">
+          <div class="tableHead">
+            <h2>Inventory List</h2>
+            <div class="tableTools">
+              <input type="search" id="searchInput" placeholder="Search property, item, location..." />
+              <input type="file" id="importCsvInput" accept=".csv" class="hidden" />
+              <div class="tableActionsGroup">
+                <button id="importCsvBtn" class="btn ghost btnImport" type="button">Import CSV</button>
+                <a href="imports.php" class="btn ghost btnViewImported">View Imported CSV</a>
+                <button id="exportBtn" class="btn secondary btnExport">Export CSV</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="stats" id="stats"></div>
+
+          <div class="tableWrap">
+            <table class="inventoryTable">
+              <thead>
+                <tr>
+                  <th>Property No</th>
+                  <th>Item</th>
+                  <th>Category</th>
+                  <th>Brand / Model</th>
+                  <th>Serial No</th>
+                  <th>Location</th>
+                  <th>Condition</th>
+                  <th>Acquired</th>
+                  <th>Assigned To</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="inventoryBody"></tbody>
+            </table>
+          </div>
+
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
+
+
