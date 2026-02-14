@@ -84,6 +84,8 @@ let filtered = [];
 let currentUser = null;
 const INVENTORY_TABLE_COLS = 37;
 let isSyncingInventoryScroll = false;
+let dynamicOptionsLoaded = false;
+let dynamicOptionsPromise = null;
 
 boot();
 
@@ -300,8 +302,24 @@ async function fetchItems() {
   }
 
   items = res.items || [];
-  await loadDynamicOptionsFromImports();
   applySearch();
+  // Inventory List page does not need dynamic form options.
+  // Load them only when the add/update form exists and do it in background.
+  if (form) {
+    ensureDynamicOptionsLoaded();
+  }
+}
+
+function ensureDynamicOptionsLoaded() {
+  if (dynamicOptionsLoaded) return Promise.resolve();
+  if (dynamicOptionsPromise) return dynamicOptionsPromise;
+  dynamicOptionsPromise = loadDynamicOptionsFromImports()
+    .catch(() => {})
+    .finally(() => {
+      dynamicOptionsLoaded = true;
+      dynamicOptionsPromise = null;
+    });
+  return dynamicOptionsPromise;
 }
 
 function applySearch() {
