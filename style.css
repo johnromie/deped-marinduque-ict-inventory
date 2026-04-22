@@ -593,6 +593,10 @@ body.modalOpen {
   z-index: 80;
 }
 
+.modalOverlay.hidden {
+  display: none;
+}
+
 .modalCard {
   width: min(520px, calc(100vw - 36px));
   max-height: calc(100vh - 36px);
