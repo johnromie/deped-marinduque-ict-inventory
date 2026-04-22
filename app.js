@@ -16,6 +16,15 @@ const password = document.getElementById("password");
 const whoami = document.getElementById("whoami");
 const logoutBtn = document.getElementById("logoutBtn");
 const inventoryNavBtn = document.getElementById("inventoryNavBtn");
+const accountSecurityBtn = document.getElementById("accountSecurityBtn");
+const accountSecurityModal = document.getElementById("accountSecurityModal");
+const accountSecurityClose = document.getElementById("accountSecurityClose");
+const authHelpModal = document.getElementById("authHelpModal");
+const authHelpTitle = document.getElementById("authHelpTitle");
+const authHelpBody = document.getElementById("authHelpBody");
+const authHelpClose = document.getElementById("authHelpClose");
+const createAccountLink = document.getElementById("createAccountLink");
+const forgotPasswordLink = document.getElementById("forgotPasswordLink");
 
 const changePasswordForm = document.getElementById("changePasswordForm");
 const currentPassword = document.getElementById("currentPassword");
@@ -105,6 +114,27 @@ async function boot() {
   }
 }
 
+function openModal(modalEl) {
+  if (!modalEl) return;
+  modalEl.classList.remove("hidden");
+  document.body.classList.add("modalOpen");
+}
+
+function closeModal(modalEl) {
+  if (!modalEl) return;
+  modalEl.classList.add("hidden");
+  if (!document.querySelector(".modalOverlay:not(.hidden)")) {
+    document.body.classList.remove("modalOpen");
+  }
+}
+
+function showAuthHelp(title, body) {
+  if (!authHelpModal || !authHelpTitle || !authHelpBody) return;
+  authHelpTitle.textContent = String(title || "Help");
+  authHelpBody.textContent = String(body || "");
+  openModal(authHelpModal);
+}
+
 if (loginForm) {
   loginForm.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -124,6 +154,45 @@ if (loginForm) {
     loginForm.reset();
   });
 }
+
+if (createAccountLink) {
+  createAccountLink.addEventListener("click", () => {
+    showAuthHelp(
+      "Create account",
+      "For accuracy and security: accounts are created by the Division ICT Administrator. Please contact your ICT office/admin to request a new account."
+    );
+  });
+}
+
+if (forgotPasswordLink) {
+  forgotPasswordLink.addEventListener("click", () => {
+    showAuthHelp(
+      "Forgot password",
+      "Password reset is handled by the Division ICT Administrator. Please contact your ICT office/admin to reset your password."
+    );
+  });
+}
+
+if (authHelpClose) authHelpClose.addEventListener("click", () => closeModal(authHelpModal));
+if (authHelpModal) {
+  authHelpModal.addEventListener("click", (e) => {
+    if (e.target === authHelpModal) closeModal(authHelpModal);
+  });
+}
+
+if (accountSecurityBtn) accountSecurityBtn.addEventListener("click", () => openModal(accountSecurityModal));
+if (accountSecurityClose) accountSecurityClose.addEventListener("click", () => closeModal(accountSecurityModal));
+if (accountSecurityModal) {
+  accountSecurityModal.addEventListener("click", (e) => {
+    if (e.target === accountSecurityModal) closeModal(accountSecurityModal);
+  });
+}
+
+window.addEventListener("keydown", (e) => {
+  if (e.key !== "Escape") return;
+  closeModal(accountSecurityModal);
+  closeModal(authHelpModal);
+});
 
 if (logoutBtn) {
   logoutBtn.addEventListener("click", async () => {
@@ -660,17 +729,21 @@ function showLogin() {
   loginSection.classList.remove("hidden");
   appSection.classList.add("hidden");
   if (inventoryNavBtn) inventoryNavBtn.classList.add("hidden");
+  if (accountSecurityBtn) accountSecurityBtn.classList.add("hidden");
   if (whoami) whoami.classList.add("hidden");
   if (logoutBtn) logoutBtn.classList.add("hidden");
   if (changePasswordForm) {
     changePasswordForm.reset();
   }
+  closeModal(accountSecurityModal);
+  closeModal(authHelpModal);
 }
 
 function showApp() {
   if (loginSection) loginSection.classList.add("hidden");
   if (appSection) appSection.classList.remove("hidden");
   if (inventoryNavBtn) inventoryNavBtn.classList.remove("hidden");
+  if (accountSecurityBtn) accountSecurityBtn.classList.remove("hidden");
   if (whoami) whoami.classList.remove("hidden");
   if (logoutBtn) logoutBtn.classList.remove("hidden");
   if (whoami && currentUser) whoami.textContent = `${currentUser.full_name} (${currentUser.role})`;

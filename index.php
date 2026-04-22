@@ -24,6 +24,7 @@ declare(strict_types=1);
     </div>
     <div class="topbarActions">
       <a href="inventory.php" id="inventoryNavBtn" class="btn btnInventoryNav hidden">Inventory List</a>
+      <button id="accountSecurityBtn" type="button" class="btn ghost hidden">Account Security</button>
       <span id="whoami" class="pill hidden"></span>
       <button id="logoutBtn" class="btn ghost hidden">Logout</button>
     </div>
@@ -47,6 +48,12 @@ declare(strict_types=1);
           <input id="password" type="password" required placeholder="Enter password" />
         </label>
         <button type="submit" class="btn primary">Sign In</button>
+
+        <div class="authLinks">
+          <button id="createAccountLink" type="button" class="linkBtn">Create account</button>
+          <span class="authLinksSep">•</span>
+          <button id="forgotPasswordLink" type="button" class="linkBtn">Forgot password?</button>
+        </div>
       </form>
     </section>
 
@@ -321,26 +328,42 @@ declare(strict_types=1);
             </div>
           </form>
 
-          <hr />
-
-          <h2>Account Security</h2>
-          <form id="changePasswordForm">
-            <label>Current Password
-              <input id="currentPassword" type="password" required />
-            </label>
-            <label>New Password
-              <input id="newPassword" type="password" required minlength="8" />
-            </label>
-            <label>Confirm New Password
-              <input id="confirmPassword" type="password" required minlength="8" />
-            </label>
-            <button type="submit" class="btn secondary">Change Password</button>
-          </form>
         </section>
 
       </div>
     </section>
   </main>
+
+  <div id="authHelpModal" class="modalOverlay hidden" role="dialog" aria-modal="true" aria-labelledby="authHelpTitle">
+    <div class="modalCard panel">
+      <div class="modalHead">
+        <h2 id="authHelpTitle">Help</h2>
+        <button id="authHelpClose" type="button" class="btn ghost">Close</button>
+      </div>
+      <p id="authHelpBody" class="modalBodyText"></p>
+    </div>
+  </div>
+
+  <div id="accountSecurityModal" class="modalOverlay hidden" role="dialog" aria-modal="true" aria-labelledby="accountSecurityTitle">
+    <div class="modalCard panel">
+      <div class="modalHead">
+        <h2 id="accountSecurityTitle">Account Security</h2>
+        <button id="accountSecurityClose" type="button" class="btn ghost">Close</button>
+      </div>
+      <form id="changePasswordForm">
+        <label>Current Password
+          <input id="currentPassword" type="password" required />
+        </label>
+        <label>New Password
+          <input id="newPassword" type="password" required minlength="8" />
+        </label>
+        <label>Confirm New Password
+          <input id="confirmPassword" type="password" required minlength="8" />
+        </label>
+        <button type="submit" class="btn secondary">Change Password</button>
+      </form>
+    </div>
+  </div>
 
   <script src="app.js?v=20260213h"></script>
 </body>

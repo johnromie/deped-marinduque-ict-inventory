@@ -95,6 +95,18 @@ body::after {
   padding: 18px;
 }
 
+.pageIndex .page {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 42px;
+  padding-bottom: 42px;
+}
+
+.pageIndex #loginSection {
+  margin: 0;
+}
+
 .layout {
   display: grid;
   grid-template-columns: 1fr;
@@ -184,6 +196,35 @@ body::after {
   font-weight: 700;
   letter-spacing: 0.02em;
   box-shadow: 0 6px 14px rgba(12, 63, 143, 0.26);
+}
+
+.authLinks {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 6px;
+  font-size: 0.9rem;
+}
+
+.authLinksSep {
+  color: #9ca3af;
+}
+
+.linkBtn {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  color: #0c3f8f;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.linkBtn:hover {
+  color: #0a3170;
 }
 h2 { margin-top: 0; font-size: 1.1rem; }
 h3 { color: #1e335b; }
@@ -537,6 +578,46 @@ td .rowActions { display: flex; gap: 6px; }
 .hint { color: var(--muted); font-size: 0.9rem; }
 .hidden { display: none; }
 
+body.modalOpen {
+  overflow: hidden;
+}
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 26, 49, 0.68);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  z-index: 80;
+}
+
+.modalCard {
+  width: min(520px, calc(100vw - 36px));
+  max-height: calc(100vh - 36px);
+  overflow: auto;
+}
+
+.modalHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.modalHead h2 {
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+.modalBodyText {
+  margin: 8px 0 0;
+  color: #374151;
+  line-height: 1.45;
+}
+
 /* Excel-like style for imported CSV view */
 #importMeta {
   color: #475569;
@@ -595,6 +676,7 @@ td .rowActions { display: flex; gap: 6px; }
 
 @media (max-width: 980px) {
   .page { padding: 14px; }
+  .pageIndex .page { padding-top: 22px; padding-bottom: 22px; }
   .topbar { padding: 12px 14px; }
   .govBanner img { height: clamp(64px, 14vw, 110px); }
   .formGrid3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -606,6 +688,7 @@ td .rowActions { display: flex; gap: 6px; }
 
 @media (max-width: 600px) {
   .govBanner img { height: clamp(58px, 17vw, 90px); }
+  .pageIndex .page { padding-top: 16px; padding-bottom: 16px; }
   .topbar h1 { font-size: 1.1rem; }
   .topbar p { font-size: 0.9rem; }
   .inventoryTable thead th { top: 0; }
