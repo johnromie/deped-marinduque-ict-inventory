@@ -16,9 +16,6 @@ const password = document.getElementById("password");
 const whoami = document.getElementById("whoami");
 const logoutBtn = document.getElementById("logoutBtn");
 const inventoryNavBtn = document.getElementById("inventoryNavBtn");
-const accountSecurityBtn = document.getElementById("accountSecurityBtn");
-const accountSecurityModal = document.getElementById("accountSecurityModal");
-const accountSecurityClose = document.getElementById("accountSecurityClose");
 const authHelpModal = document.getElementById("authHelpModal");
 const authHelpTitle = document.getElementById("authHelpTitle");
 const authHelpBody = document.getElementById("authHelpBody");
@@ -180,17 +177,8 @@ if (authHelpModal) {
   });
 }
 
-if (accountSecurityBtn) accountSecurityBtn.addEventListener("click", () => openModal(accountSecurityModal));
-if (accountSecurityClose) accountSecurityClose.addEventListener("click", () => closeModal(accountSecurityModal));
-if (accountSecurityModal) {
-  accountSecurityModal.addEventListener("click", (e) => {
-    if (e.target === accountSecurityModal) closeModal(accountSecurityModal);
-  });
-}
-
 window.addEventListener("keydown", (e) => {
   if (e.key !== "Escape") return;
-  closeModal(accountSecurityModal);
   closeModal(authHelpModal);
 });
 
@@ -726,24 +714,23 @@ function clearForm() {
 
 function showLogin() {
   if (!loginSection || !appSection) return;
+  document.body.classList.add("isLogin");
   loginSection.classList.remove("hidden");
   appSection.classList.add("hidden");
   if (inventoryNavBtn) inventoryNavBtn.classList.add("hidden");
-  if (accountSecurityBtn) accountSecurityBtn.classList.add("hidden");
   if (whoami) whoami.classList.add("hidden");
   if (logoutBtn) logoutBtn.classList.add("hidden");
   if (changePasswordForm) {
     changePasswordForm.reset();
   }
-  closeModal(accountSecurityModal);
   closeModal(authHelpModal);
 }
 
 function showApp() {
+  document.body.classList.remove("isLogin");
   if (loginSection) loginSection.classList.add("hidden");
   if (appSection) appSection.classList.remove("hidden");
   if (inventoryNavBtn) inventoryNavBtn.classList.remove("hidden");
-  if (accountSecurityBtn) accountSecurityBtn.classList.remove("hidden");
   if (whoami) whoami.classList.remove("hidden");
   if (logoutBtn) logoutBtn.classList.remove("hidden");
   if (whoami && currentUser) whoami.textContent = `${currentUser.full_name} (${currentUser.role})`;

@@ -12,7 +12,7 @@ declare(strict_types=1);
   <title>DepEd Marinduque ICT Inventory</title>
   <link rel="stylesheet" href="style.css?v=20260213h" />
 </head>
-<body class="pageIndex">
+<body class="pageIndex isLogin">
   <div class="govBanner">
     <img src="assets/top.webp" alt="DepEd Marinduque Header" />
   </div>
@@ -24,7 +24,6 @@ declare(strict_types=1);
     </div>
     <div class="topbarActions">
       <a href="inventory.php" id="inventoryNavBtn" class="btn btnInventoryNav hidden">Inventory List</a>
-      <button id="accountSecurityBtn" type="button" class="btn ghost hidden">Account Security</button>
       <span id="whoami" class="pill hidden"></span>
       <button id="logoutBtn" class="btn ghost hidden">Logout</button>
     </div>
@@ -341,27 +340,6 @@ declare(strict_types=1);
         <button id="authHelpClose" type="button" class="btn ghost">Close</button>
       </div>
       <p id="authHelpBody" class="modalBodyText"></p>
-    </div>
-  </div>
-
-  <div id="accountSecurityModal" class="modalOverlay hidden" role="dialog" aria-modal="true" aria-labelledby="accountSecurityTitle">
-    <div class="modalCard panel">
-      <div class="modalHead">
-        <h2 id="accountSecurityTitle">Account Security</h2>
-        <button id="accountSecurityClose" type="button" class="btn ghost">Close</button>
-      </div>
-      <form id="changePasswordForm">
-        <label>Current Password
-          <input id="currentPassword" type="password" required />
-        </label>
-        <label>New Password
-          <input id="newPassword" type="password" required minlength="8" />
-        </label>
-        <label>Confirm New Password
-          <input id="confirmPassword" type="password" required minlength="8" />
-        </label>
-        <button type="submit" class="btn secondary">Change Password</button>
-      </form>
     </div>
   </div>
 
