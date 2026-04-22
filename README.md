@@ -2,16 +2,20 @@
 
 ## Tech
 - Frontend: HTML/CSS/Vanilla JS
-- Backend: PHP 8+
+- Backend: Node.js (Express)
 - Database: SQLite
 
 ## Local Run
 1. Open terminal in this folder.
-2. Start PHP server:
+2. Install dependencies:
    ```powershell
-   php -S localhost:8000
+   npm.cmd install
    ```
-3. Open `http://localhost:8000/index.php`.
+3. Start the server:
+   ```powershell
+   npm.cmd start
+   ```
+4. Open `http://localhost:3000/` (or `/index.php`).
 
 ## Default Accounts
 - `ICT` / `admin`
@@ -39,3 +43,15 @@
 ## Production Notes
 - DB file path is configurable via environment variable `DB_PATH`.
 - Default local DB path is `data/database.sqlite`.
+
+## Hostinger Deployment (Node.js Add-on)
+This repo is now a **Node.js (Express)** app, so Hostinger’s Node.js add-on can import and run it.
+
+Recommended setup on Hostinger:
+1. Import the Git repo in the **Node.js** add-on.
+2. Set **Startup file** to `server.js` (or run command `npm start`).
+3. Add environment variables:
+   - `SESSION_SECRET`: a long random secret (required for secure logins)
+   - `DB_PATH` (optional): custom DB path; default is `data/database.sqlite`
+   - `COOKIE_SECURE` (optional): set to `1` if your site is HTTPS and cookies are not sticking
+4. Deploy, then open your domain.

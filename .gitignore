@@ -3,3 +3,6 @@ cloudflared*.log
 *.sqlite3
 data/*.sqlite
 .vscode/
+node_modules/
+data/sessions/
+.npm-cache/
